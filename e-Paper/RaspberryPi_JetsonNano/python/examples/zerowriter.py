@@ -99,7 +99,7 @@ class Menu:
         self.display_draw.rectangle((0, 450, 800, 480), fill=255)  # Clear display
         temp_content = self.inputlabel + ": " + self.input_content + self.ending_content
         # Draw input line text
-        self.display_draw.text((10, 270), str(temp_content), font=font24, fill=0)        
+        self.display_draw.text((10, 450), str(temp_content), font=font24, fill=0)        
         partial_buffer = self.epd.getbuffer(self.display_image)
         self.epd.display_Partial(partial_buffer)
         time.sleep(delay)
@@ -424,7 +424,7 @@ class ZeroWriter:
 
     def power_down(self):
         self.epd.Clear
-        self.display_draw.rectangle((0, 0, 400, 300), fill=255)  # Clear display
+        self.display_draw.rectangle((0, 0, 800, 480), fill=255)  # Clear display
         self.display_draw.text((55, 150), "ZeroWriter Powering Off", font=font24, fill=0)
         partial_buffer = self.epd.getbuffer(self.display_image)
         self.epd.display_Partial(partial_buffer)
@@ -505,10 +505,10 @@ class ZeroWriter:
 
     def update_display(self):
         self.display_updating = True
-        self.display_draw.rectangle((0, 0, 400, 300), fill=255)
+        self.display_draw.rectangle((0, 0, 800, 480), fill=255)
         
         # Display the previous lines
-        y_position = 270 - self.line_spacing  # leaves room for cursor input
+        y_position = 450 - self.line_spacing  # leaves room for cursor input
 
         #Make a temp array from previous_lines. And then reverse it and display as usual.
         current_line=max(0,len(self.previous_lines)-self.lines_on_screen*self.scrollindex)
@@ -521,8 +521,8 @@ class ZeroWriter:
 
         #Display Console Message
         if self.console_message != "":
-            self.display_draw.rectangle((300, 270, 400, 300), fill=255)
-            self.display_draw.text((200, 270), self.console_message, font=font24, fill=0)
+            self.display_draw.rectangle((700, 450, 800, 480), fill=255)
+            self.display_draw.text((400, 450), self.console_message, font=font24, fill=0)
             #self.console_message = ""
         
         #generate display buffer for display
@@ -538,9 +538,9 @@ class ZeroWriter:
         if not self.updating_input_area and self.scrollindex==1:
             self.updating_input_area = True
             cursor_index = self.cursor_position
-            self.display_draw.rectangle((0, 270, 400, 300), fill=255)  # Clear display
+            self.display_draw.rectangle((0, 450, 800, 480), fill=255)  # Clear display
             temp_content = self.input_content[:cursor_index] + "|" + self.input_content[cursor_index:]
-            self.display_draw.text((10, 270), str(temp_content), font=font24, fill=0)
+            self.display_draw.text((10, 450), str(temp_content), font=font24, fill=0)
             #self.updating_input_area = True
             partial_buffer = self.epd.getbuffer(self.display_image)
             self.epd.display_Partial(partial_buffer)
