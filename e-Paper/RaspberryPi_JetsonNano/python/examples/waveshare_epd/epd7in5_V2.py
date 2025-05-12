@@ -320,53 +320,17 @@ class EPD:
         epdconfig.delay_ms(100)
         self.ReadBusy()
 
-    def display_Partial(self, Image, Xstart, Ystart, Xend, Yend):
-        if((Xstart % 8 + Xend % 8 == 8 & Xstart % 8 > Xend % 8) | Xstart % 8 + Xend % 8 == 0 | (Xend - Xstart)%8 == 0):
-            Xstart = Xstart // 8 * 8
-            Xend = Xend // 8 * 8
-        else:
-            Xstart = Xstart // 8 * 8
-            if Xend % 8 == 0:
-                Xend = Xend // 8 * 8
-            else:
-                Xend = Xend // 8 * 8 + 1
-                
-        Width = (Xend - Xstart) // 8
-        Height = Yend - Ystart
-	
-        # self.send_command(0x50)
-        # self.send_data(0xA9)
-        # self.send_data(0x07)
+    def display_Partial(self, Image):
+        self.send_command(0x3C)  # BorderWaveform
+        self.send_data(0x80) # blank border?
 
-        self.send_command(0x91)		#This command makes the display enter partial mode
-        self.send_command(0x90)		#resolution setting
-        self.send_data (Xstart//256)
-        self.send_data (Xstart%256)   #x-start    
+        self.send_command(0x21)  # Display update control
+        self.send_data(0x00)
 
-        self.send_data ((Xend-1)//256)		
-        self.send_data ((Xend-1)%256)  #x-end	
-
-        self.send_data (Ystart//256)  #
-        self.send_data (Ystart%256)   #y-start    
-
-        self.send_data ((Yend-1)//256)		
-        self.send_data ((Yend-1)%256)  #y-end
-        self.send_data (0x01)
-
-        if self.partFlag == 1:
-            self.partFlag = 0
-            self.send_command(0x10)
-            for j in range(Height):
-                    for i in range(Width):
-                        self.send_data(0xff)
-
-        self.send_command(0x13)   #Write Black and White image to RAM
-        self.send_data2(Image)
-
-        self.send_command(0x12)
-        epdconfig.delay_ms(100)
-        self.ReadBusy()
-
+        self.send_command(0x24) # WRITE_RAM
+        self.send_data2(Image)  
+        self.TurnOnDisplay_Partial()
+	    
     def display_4Gray(self, image):
         self.send_command(0x10)
         for i in range(0, 48000):     
