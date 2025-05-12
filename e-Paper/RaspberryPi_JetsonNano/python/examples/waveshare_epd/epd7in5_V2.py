@@ -320,50 +320,26 @@ class EPD:
         epdconfig.delay_ms(100)
         self.ReadBusy()
 
-    def display_Partial(self, Image, Xstart, Ystart, Xend, Yend):
-        if((Xstart % 8 + Xend % 8 == 8 & Xstart % 8 > Xend % 8) | Xstart % 8 + Xend % 8 == 0 | (Xend - Xstart)%8 == 0):
-            Xstart = Xstart // 8 * 8
-            Xend = Xend // 8 * 8
-        else:
-            Xstart = Xstart // 8 * 8
-            if Xend % 8 == 0:
-                Xend = Xend // 8 * 8
-            else:
-                Xend = Xend // 8 * 8 + 1
-                
-        Width = (Xend - Xstart) // 8
-        Height = Yend - Ystart
-	
-        self.send_command(0x50)
-        self.send_data(0xA9)
-        self.send_data(0x07)
+    def init_Partial(self):
+        if (epdconfig.module_init() != 0):
+            return -1
+        # EPD hardware init start
+        self.reset()
 
-        self.send_command(0x91)		#This command makes the display enter partial mode
-        self.send_command(0x90)		#resolution setting
-        self.send_data (Xstart//256)
-        self.send_data (Xstart%256)   #x-start    
+        self.send_command(0X00)			#PANNEL SETTING
+        self.send_data(0x1F)   #KW-3f   KWR-2F	BWROTP 0f	BWOTP 1f
 
-        self.send_data ((Xend-1)//256)		
-        self.send_data ((Xend-1)%256)  #x-end	
+        self.send_command(0x04) #POWER ON
+        epdconfig.delay_ms(100) 
+        self.ReadBusy()        #waiting for the electronic paper IC to release the idle signal
 
-        self.send_data (Ystart//256)  #
-        self.send_data (Ystart%256)   #y-start    
+        self.send_command(0xE0)
+        self.send_data(0x02)
+        self.send_command(0xE5)
+        self.send_data(0x6E)
 
-        self.send_data ((Yend-1)//256)		
-        self.send_data ((Yend-1)%256)  #y-end
-        self.send_data (0x01)
-
-        image1 = [0xFF] * int(self.width * self.height / 8)
-        for j in range(Height):
-                for i in range(Width):
-                    image1[i + j * Width] = ~Image[i + j * Width]
-
-        self.send_command(0x13)   #Write Black and White image to RAM
-        self.send_data2(Image)
-
-        self.send_command(0x12)
-        epdconfig.delay_ms(100)
-        self.ReadBusy()
+        # EPD hardware init end
+        return 0
 
     def display_4Gray(self, image):
         self.send_command(0x10)
