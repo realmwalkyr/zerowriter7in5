@@ -12,14 +12,14 @@
 # access to the SPI screen. it handles keyboard input directly via keyboard library.
 #
 # currently ONLY supports waveshare 4in2
-#
+# Modifications to change support to the Waveshare 7.5 inch 800x480 display - new7in5part_zw
 
 import time
 import keyboard
 import keymaps
 from PIL import Image, ImageDraw, ImageFont
 #from waveshare_epd import epd4in2_V2
-from waveshare_epd import new4in2part
+from waveshare_epd import new7in5part_zw
 from zerowriter import ZeroWriter
 
 
@@ -27,7 +27,7 @@ from zerowriter import ZeroWriter
 zero_writer = ZeroWriter()
 
 try:
-  zero_writer.epd = new4in2part.EPD()
+  zero_writer.epd = new7in5part_zw.EPD()
   zero_writer.keyboard = keyboard
   zero_writer.initialize()
   zero_writer.run()
