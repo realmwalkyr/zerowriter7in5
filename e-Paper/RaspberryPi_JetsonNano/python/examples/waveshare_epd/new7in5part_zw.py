@@ -321,50 +321,22 @@ class EPD:
         self.ReadBusy()
 
     def display_Partial(self, Image, Xstart, Ystart, Xend, Yend):
-        if((Xstart % 8 + Xend % 8 == 8 & Xstart % 8 > Xend % 8) | Xstart % 8 + Xend % 8 == 0 | (Xend - Xstart)%8 == 0):
-            Xstart = Xstart // 8 * 8
-            Xend = Xend // 8 * 8
+        if self.width % 8 == 0:
+            linewidth = int(self.width / 8)
         else:
-            Xstart = Xstart // 8 * 8
-            if Xend % 8 == 0:
-                Xend = Xend // 8 * 8
-            else:
-                Xend = Xend // 8 * 8 + 1
-                
-        Width = (Xend - Xstart) // 8
-        Height = Yend - Ystart
+            linewidth = int(self.width / 8) + 1
+
+        self.send_command(0x92) #91=partial 92=regular
+        self.send_command(0x90)  # resolution setting
+        #self.set_lut() #the LUT are set on init.
+        self.send_command(0x10)
+        #self.send_data2([0xFF] * int(self.width * linewidth)) #high cpu overhead
+        self.send_command(0x13)
+        self.send_data2(image)
+        self.send_command(0x12) #refresh
+       
+        #self.ReadBusy()
 	
-        self.send_command(0x50)
-        self.send_data(0xA9)
-        self.send_data(0x07)
-
-        self.send_command(0x91)		#This command makes the display enter partial mode
-        self.send_command(0x90)		#resolution setting
-        self.send_data (Xstart//256)
-        self.send_data (Xstart%256)   #x-start    
-
-        self.send_data ((Xend-1)//256)		
-        self.send_data ((Xend-1)%256)  #x-end	
-
-        self.send_data (Ystart//256)  #
-        self.send_data (Ystart%256)   #y-start    
-
-        self.send_data ((Yend-1)//256)		
-        self.send_data ((Yend-1)%256)  #y-end
-        self.send_data (0x01)
-
-        image1 = [0xFF] * int(self.width * self.height / 8)
-        for j in range(Height):
-                for i in range(Width):
-                    image1[i + j * Width] = ~Image[i + j * Width]
-
-        self.send_command(0x13)   #Write Black and White image to RAM
-        self.send_data2(image1)
-
-        self.send_command(0x12)
-        epdconfig.delay_ms(100)
-        self.ReadBusy()
-
     def display_4Gray(self, image):
         self.send_command(0x10)
         for i in range(0, 48000):     
