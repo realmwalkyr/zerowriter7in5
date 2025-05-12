@@ -320,7 +320,7 @@ class EPD:
         epdconfig.delay_ms(100)
         self.ReadBusy()
 
-    def display_Partial(self, Image, Xstart, Ystart, Xend, Yend):
+    def display_Partial(self, image, Xstart, Ystart, Xend, Yend):
         if((Xstart % 8 + Xend % 8 == 8 & Xstart % 8 > Xend % 8) | Xstart % 8 + Xend % 8 == 0 | (Xend - Xstart)%8 == 0):
             Xstart = Xstart // 8 * 8
             Xend = Xend // 8 * 8
