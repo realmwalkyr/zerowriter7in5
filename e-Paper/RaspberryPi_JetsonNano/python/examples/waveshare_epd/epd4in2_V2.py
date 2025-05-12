@@ -40,8 +40,8 @@ from PIL import Image
 import RPi.GPIO as GPIO
 
 # Display resolution
-EPD_WIDTH  = 400
-EPD_HEIGHT = 300
+EPD_WIDTH  = 800
+EPD_HEIGHT = 480
 
 GRAY1 = 0xff  # white
 GRAY2 = 0xC0
