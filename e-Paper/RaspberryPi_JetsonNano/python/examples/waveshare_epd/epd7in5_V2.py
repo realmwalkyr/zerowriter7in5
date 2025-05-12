@@ -334,9 +334,9 @@ class EPD:
         Width = (Xend - Xstart) // 8
         Height = Yend - Ystart
 	
-        self.send_command(0x50)
-        self.send_data(0xA9)
-        self.send_data(0x07)
+        # self.send_command(0x50)
+        # self.send_data(0xA9)
+        # self.send_data(0x07)
 
         self.send_command(0x91)		#This command makes the display enter partial mode
         self.send_command(0x90)		#resolution setting
@@ -353,13 +353,15 @@ class EPD:
         self.send_data ((Yend-1)%256)  #y-end
         self.send_data (0x01)
 
-        image1 = [0xFF] * int(self.width * self.height / 8)
-        for j in range(Height):
-                for i in range(Width):
-                    image1[i + j * Width] = ~Image[i + j * Width]
+        if self.partFlag == 1:
+            self.partFlag = 0
+            self.send_command(0x10)
+            for j in range(Height):
+                    for i in range(Width):
+                        self.send_data(0xff)
 
         self.send_command(0x13)   #Write Black and White image to RAM
-        self.send_data2(image1)
+        self.send_data2(Image)
 
         self.send_command(0x12)
         epdconfig.delay_ms(100)
