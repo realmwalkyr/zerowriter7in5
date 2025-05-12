@@ -320,7 +320,7 @@ class EPD:
         epdconfig.delay_ms(100)
         self.ReadBusy()
 
-    def display_Partial(self, image, Xstart, Ystart, Xend, Yend):
+    def display_Partial(self, Image, Xstart, Ystart, Xend, Yend):
         if((Xstart % 8 + Xend % 8 == 8 & Xstart % 8 > Xend % 8) | Xstart % 8 + Xend % 8 == 0 | (Xend - Xstart)%8 == 0):
             Xstart = Xstart // 8 * 8
             Xend = Xend // 8 * 8
@@ -359,7 +359,7 @@ class EPD:
                     image1[i + j * Width] = ~Image[i + j * Width]
 
         self.send_command(0x13)   #Write Black and White image to RAM
-        self.send_data2(image1)
+        self.send_data2(Image)
 
         self.send_command(0x12)
         epdconfig.delay_ms(100)
