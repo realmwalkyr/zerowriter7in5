@@ -326,7 +326,7 @@ class EPD:
         else:
             linewidth = int(self.width / 8) + 1
 
-        self.send_command(0x92) #91=partial 92=regular
+        self.send_command(0x91) #91=partial 92=regular
         self.send_command(0x90)  # resolution setting
         #self.set_lut() #the LUT are set on init.
         self.send_command(0x10)
