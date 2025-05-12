@@ -522,7 +522,7 @@ class ZeroWriter:
         #Display Console Message
         if self.console_message != "":
             self.display_draw.rectangle((700, 450, 800, 480), fill=255)
-            self.display_draw.text((400, 450), self.console_message, font=font24, fill=0)
+            self.display_draw.text((700, 450), self.console_message, font=font24, fill=0)
             #self.console_message = ""
         
         #generate display buffer for display
