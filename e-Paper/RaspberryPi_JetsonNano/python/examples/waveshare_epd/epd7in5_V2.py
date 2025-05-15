@@ -36,8 +36,8 @@ EPD_WIDTH       = 800
 EPD_HEIGHT      = 480
 
 GRAY1  = 0xff #white
-GRAY2  = 0xC0
-GRAY3  = 0x80 #gray
+GRAY2  = 0xff
+GRAY3  = 0x00 #gray
 GRAY4  = 0x00 #Blackest
 
 logger = logging.getLogger(__name__)
