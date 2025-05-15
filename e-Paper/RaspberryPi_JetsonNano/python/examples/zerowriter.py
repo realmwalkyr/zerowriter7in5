@@ -18,7 +18,7 @@ from PIL import Image, ImageDraw, ImageFont
 # the codebase here is very similar to the 2.2, with a few changes to handling
 # display update timings and delays. 
 
-delay = 0 # 100 standard delay v2.2, 2.1 can use 0
+delay = 50 # 100 standard delay v2.2, 2.1 can use 0
 font24 = ImageFont.truetype('Courier Prime.ttf', 18)
 
 class Menu:
