@@ -159,7 +159,7 @@ class EPD:
         
         return 0
     
-    def init_part(self):
+    def init_Partial(self):
         if (epdconfig.module_init() != 0):
             return -1
         # EPD hardware init start
