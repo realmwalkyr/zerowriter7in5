@@ -339,7 +339,7 @@ class EPD:
 #        Width = (Xend - Xstart) // 8
 #        Height = Yend - Ystart
 	
-        #self.send_command(0x50)
+        self.send_command(0x50)
         #self.send_data(0xA9)
         #self.send_data(0x07)
 
@@ -365,10 +365,10 @@ class EPD:
 
         self.send_command(0x10)
         self.send_command(0x13)   #Write Black and White image to RAM
-        self.send_data2(~image)
+        self.send_data2(image)
 
         self.send_command(0x12)
-        epdconfig.delay_ms(100)
+        epdconfig.delay_ms(50)
         self.ReadBusy()
 
     def display_4Gray(self, image):
