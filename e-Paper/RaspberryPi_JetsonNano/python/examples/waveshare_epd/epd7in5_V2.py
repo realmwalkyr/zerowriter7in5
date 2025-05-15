@@ -339,9 +339,9 @@ class EPD:
 #        Width = (Xend - Xstart) // 8
 #        Height = Yend - Ystart
 	
-        self.send_command(0x50)
-        self.send_data(0xA9)
-        self.send_data(0x07)
+        #self.send_command(0x50)
+        #self.send_data(0xA9)
+        #self.send_data(0x07)
 
         self.send_command(0x92)		#This command makes the display enter partial mode
         self.send_command(0x90)		#resolution setting
@@ -368,8 +368,8 @@ class EPD:
         self.send_data2(image)
 
         self.send_command(0x12)
-        epdconfig.delay_ms(10)
-        #self.ReadBusy()
+        epdconfig.delay_ms(100)
+        self.ReadBusy()
 
     def display_4Gray(self, image):
         self.send_command(0x10)
