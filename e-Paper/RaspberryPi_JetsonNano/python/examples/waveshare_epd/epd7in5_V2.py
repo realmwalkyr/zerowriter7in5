@@ -340,8 +340,8 @@ class EPD:
 #        Height = Yend - Ystart
 	
         self.send_command(0x50)
-        #self.send_data(0xA9)
-        self.send_data(0x07)
+        self.send_data(0xA9)
+        #self.send_data(0x07)
 
         self.send_command(0x92)		#This command makes the display enter partial mode
         self.send_command(0x90)		#resolution setting
