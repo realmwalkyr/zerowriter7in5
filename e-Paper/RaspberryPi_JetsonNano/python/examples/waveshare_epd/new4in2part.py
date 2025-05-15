@@ -536,7 +536,7 @@ class EPD:
         self.ReadBusy()
 
 
-    def display_Partial(self, image):
+    def display_Partial(self, image, Xstart, Ystart, Xend, Yend):
         if self.width % 8 == 0:
             linewidth = int(self.width / 8)
         else:
