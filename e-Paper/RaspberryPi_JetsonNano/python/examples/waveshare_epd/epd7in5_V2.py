@@ -356,7 +356,7 @@ class EPD:
 
 #        self.send_data ((Yend-1)//256)		
 #        self.send_data ((Yend-1)%256)  #y-end
-        self.send_data (0x01)
+        self.send_data(0x01)
 	self.send_command(0x10)
 
 #        image1 = [0xFF] * int(self.width * self.height / 8)
