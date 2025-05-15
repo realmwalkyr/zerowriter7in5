@@ -30,7 +30,6 @@
 
 import logging
 from . import epdconfig
-from PIL import Image, ImageOps
 
 # Display resolution
 EPD_WIDTH       = 800
@@ -321,7 +320,7 @@ class EPD:
         epdconfig.delay_ms(100)
         self.ReadBusy()
 
-    def display_Partial(self, Image):
+    def display_Partial(self, image):
 	#(, Xstart, Ystart, Xend, Yend):
         if self.width % 8 == 0:
             linewidth = int(self.width / 8)
@@ -357,16 +356,16 @@ class EPD:
 
 #        self.send_data ((Yend-1)//256)		
 #        self.send_data ((Yend-1)%256)  #y-end
-        #self.send_data(0x01)
+        self.send_data(0x01)
 
 #        image1 = [0xFF] * int(self.width * self.height / 8)
 #        for j in range(Height):
 #                for i in range(Width):
 #                    image1[i + j * Width] = ~Image[i + j * Width]
-        image1 = ImageOps.invert(Image)
+        
         self.send_command(0x10)
         self.send_command(0x13)   #Write Black and White image to RAM
-        self.send_data2(image1)
+        self.send_data2(image)
 
         self.send_command(0x12)
         epdconfig.delay_ms(50)
