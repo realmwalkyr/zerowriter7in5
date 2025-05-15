@@ -343,7 +343,7 @@ class EPD:
         self.send_data(0xA9)
         self.send_data(0x07)
 
-        self.send_command(0x91)		#This command makes the display enter partial mode
+        self.send_command(0x92)		#This command makes the display enter partial mode
         self.send_command(0x90)		#resolution setting
 #        self.send_data (Xstart//256)
 #        self.send_data (Xstart%256)   #x-start    
@@ -368,7 +368,7 @@ class EPD:
         self.send_data2(image1)
 
         self.send_command(0x12)
-        epdconfig.delay_ms(50)
+        epdconfig.delay_ms(100)
         self.ReadBusy()
 
     def display_4Gray(self, image):
