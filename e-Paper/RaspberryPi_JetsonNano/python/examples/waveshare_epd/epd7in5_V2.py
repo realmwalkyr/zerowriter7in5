@@ -36,8 +36,8 @@ EPD_WIDTH       = 800
 EPD_HEIGHT      = 480
 
 GRAY1  = 0xff #white
-GRAY2  = 0xff
-GRAY3  = 0x00 #gray
+GRAY2  = 0xC0
+GRAY3  = 0x80 #gray
 GRAY4  = 0x00 #Blackest
 
 logger = logging.getLogger(__name__)
@@ -362,10 +362,10 @@ class EPD:
 #        for j in range(Height):
 #                for i in range(Width):
 #                    image1[i + j * Width] = ~Image[i + j * Width]
-
+        image1 = ~image
         self.send_command(0x10)
         self.send_command(0x13)   #Write Black and White image to RAM
-        self.send_data2(image)
+        self.send_data2(image1)
 
         self.send_command(0x12)
         epdconfig.delay_ms(50)
