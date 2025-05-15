@@ -10,7 +10,7 @@ import subprocess
 import asyncio
 
 from gmailhandle import GmailCredentials
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 # this is an edit of the zerowriter program for the rev 2.1 display
 # this won't work with the 2.2 display.
