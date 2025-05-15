@@ -30,6 +30,7 @@
 
 import logging
 from . import epdconfig
+from PIL import Image, ImageOps
 
 # Display resolution
 EPD_WIDTH       = 800
