@@ -363,7 +363,7 @@ class EPD:
 #        for j in range(Height):
 #                for i in range(Width):
 #                    image1[i + j * Width] = ~Image[i + j * Width]
-        image1 = ~Image
+        image1 = ImageOps.invert(Image)
         self.send_command(0x10)
         self.send_command(0x13)   #Write Black and White image to RAM
         self.send_data2(image1)
