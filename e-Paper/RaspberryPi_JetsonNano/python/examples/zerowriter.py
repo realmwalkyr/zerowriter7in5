@@ -19,7 +19,7 @@ from PIL import Image, ImageDraw, ImageFont
 # display update timings and delays. 
 
 delay = 50 # 100 standard delay v2.2, 2.1 can use 0
-font24 = ImageFont.truetype('Courier Prime.ttf', 24)
+font24 = ImageFont.truetype('Courier Prime.ttf', 18)
 
 class Menu:
     def __init__(self, display_draw, epd, display_image):
