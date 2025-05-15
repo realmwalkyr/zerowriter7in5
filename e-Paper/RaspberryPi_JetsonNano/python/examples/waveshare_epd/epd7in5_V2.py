@@ -339,7 +339,7 @@ class EPD:
 #        Width = (Xend - Xstart) // 8
 #        Height = Yend - Ystart
 	
-        self.send_command(0x50)
+        #self.send_command(0x50)
         #self.send_data(0xA9)
         #self.send_data(0x07)
 
