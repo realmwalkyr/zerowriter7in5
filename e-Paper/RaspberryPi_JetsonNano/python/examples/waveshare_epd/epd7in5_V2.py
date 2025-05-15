@@ -365,7 +365,7 @@ class EPD:
 
         self.send_command(0x10)
         self.send_command(0x13)   #Write Black and White image to RAM
-        self.send_data2(image)
+        self.send_data2(~image)
 
         self.send_command(0x12)
         epdconfig.delay_ms(100)
