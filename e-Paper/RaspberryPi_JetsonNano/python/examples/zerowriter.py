@@ -19,7 +19,7 @@ from PIL import Image, ImageDraw, ImageFont
 # display update timings and delays. 
 
 delay = 50 # 100 standard delay v2.2, 2.1 can use 0
-font24 = ImageFont.truetype('Courier Prime.ttf', 18)
+font24 = ImageFont.truetype('Courier Prime.ttf', 24)
 
 class Menu:
     def __init__(self, display_draw, epd, display_image):
@@ -141,9 +141,9 @@ class ZeroWriter:
         self.input_content = ""
         self.previous_lines = []
         self.needs_display_update = False
-        self.chars_per_line = 64
-        self.lines_on_screen = 12
-        self.font_size = 18
+        self.chars_per_line = 56
+        self.lines_on_screen = 16
+        self.font_size = 24
         self.line_spacing = 22
         self.scrollindex = 1
         self.console_message = ""
