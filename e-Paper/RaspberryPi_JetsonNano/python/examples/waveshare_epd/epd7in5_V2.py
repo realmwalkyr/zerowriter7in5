@@ -357,13 +357,13 @@ class EPD:
 #        self.send_data ((Yend-1)//256)		
 #        self.send_data ((Yend-1)%256)  #y-end
         self.send_data(0x01)
-	self.send_command(0x10)
 
 #        image1 = [0xFF] * int(self.width * self.height / 8)
 #        for j in range(Height):
 #                for i in range(Width):
 #                    image1[i + j * Width] = ~Image[i + j * Width]
 
+	self.send_command(0x10)
 	self.send_command(0x13)   #Write Black and White image to RAM
         self.send_data2(image)
 
